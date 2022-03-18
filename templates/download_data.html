@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Youtube downloader</h2>
+
+<form action="{{ url_for("additional_data")}}" method="post">
+  <input type="submit" value="Download">
+
+    <select name="variants_of_video_and_audio">
+        {% for content in lst_variants_of_content %}
+            <option value={{ content }}>{{ content }}</option>
+        {% endfor %}
+    </select>
+</form> 
+
+</body>
+</html>

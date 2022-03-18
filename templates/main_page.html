@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Youtube downloader</h2>
+
+<form action="{{ url_for("get_info_about_video")}}" method="post">
+  <label for="video_url">Video url:</label><br>
+  <input type="text" id="video_url" name="video_url" value="https://www.youtube.com/watch?v=EdH1d1UMKPE" size=50> <br>  
+  <input type="submit" value="Get video data">
+</form> 
+
+</body>
+</html>
+
