@@ -1,7 +1,9 @@
 import flask
 import youtube_dl
+import config_logging
 
 app = flask.Flask(__name__)
+logger = config_logging.setup_logger()
 
 @app.route("/", methods=['GET', 'POST'])
 def post_video_url(): 
@@ -12,11 +14,12 @@ def post_video_url():
         video_url = flask.request.form.get("video_url")
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             json_data = ydl.extract_info(video_url, download=False)
+            logger.info(f"\n{json_data}\n")
         for content in json_data["formats"]:
             if content["width"] == None:
                 dict_of_content.update({f"audio-{content['ext']}": content['url']})
             elif content["width"] != None:
-                dict_of_content.update({f"video-{content['ext']}-{content['width']}": content['url']})
+                dict_of_content.update({f"video-{content['ext']}-{content['format_note']}": content['url']})
         return flask.redirect("/additional_data")
     else:
         return flask.render_template("main_page.html")
